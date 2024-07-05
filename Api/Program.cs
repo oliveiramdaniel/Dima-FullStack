@@ -1,4 +1,9 @@
 using Api.Data;
+using Api.Handlers;
+using Core.Handlers;
+using Core.Models;
+using Core.Requests.Categories;
+using Core.Responses;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -20,7 +25,8 @@ builder.Services.AddSwaggerGen(x =>
     x.CustomSchemaIds(n => n.FullName);
 });
 
-builder.Services.AddTransient<Handler>();
+//Dependecy Injection
+builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
 
 var app = builder.Build();
 
@@ -28,41 +34,12 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.MapPost(
-        pattern: "/v1/transactions", 
-        handler: (Request request, Handler handler) 
-            => handler.Handle(request))
-    .WithName("Transactions/Create")
-    .WithSummary("Create a new transaction")
-    .Produces<Response>();
+        pattern: "/v1/categories", //UserId
+        handler: (CreateCategoryRequest request, 
+                    ICategoryHandler handler) 
+            => handler.CreateAsync(request))
+    .WithName("Categories: Create")
+    .WithSummary("Create a new category")
+    .Produces<Response<Category>>();
 
 app.Run();
-
-
-public class Request
-{
-    public string Title { get; set; } = string.Empty;
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public int Type { get; set; }
-    public decimal Amount { get; set; }
-    public long CategoryId { get; set; }
-    public string UserId { get; set; } = string.Empty;
-}
-
-public class Response
-{
-    public long Id { get; set; }
-    public string Title { get; set; } = string.Empty;
-}
-
-
-public class Handler
-{
-    public Response Handle(Request request)
-    {
-        return new Response
-        {
-            Id = 4,
-            Title = request.Title
-        };
-    }
-}
