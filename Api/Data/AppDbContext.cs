@@ -11,6 +11,7 @@ namespace Api.Data
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Transaction> Transactions { get; set; } = null!;
 
+        //use when create the database the first time -> Mapping
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
