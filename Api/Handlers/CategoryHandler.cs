@@ -29,7 +29,7 @@ namespace Api.Handlers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(ex);  
                 return new CreateCategoryResponse(null, 500, "Failed to create category");
             }
         }
@@ -83,7 +83,7 @@ namespace Api.Handlers
 
             }
             catch (Exception)
-            {
+        {
                 return new UpdateCategoryResponse(null, 500, "Not possible update category");
             }
         }
