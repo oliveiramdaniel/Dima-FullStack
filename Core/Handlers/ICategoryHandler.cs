@@ -11,6 +11,7 @@ namespace Core.Handlers
         Task<UpdateCategoryResponse?> UpdateAsync(UpdateCategoryRequest request);
         Task<DeleteCategoryResponse?> DeleteAsync(DeleteCategoryRequest request);
         Task<GetCategoryByIdResponse?> GetByIdAsync(GetCategoryByIdRequest request);
-        Task<GetAllCategoriesResponse<List<Category?>>> GetAllAsync(GetAllCategoriesRequest request);
+        //Task<GetAllCategoriesResponse<List<Category?>>> GetAllAsync(GetAllCategoriesRequest request);
+        Task<PagedResponse<List<Category?>>> GetAllAsync(GetAllCategoriesRequest request);
     }
 }

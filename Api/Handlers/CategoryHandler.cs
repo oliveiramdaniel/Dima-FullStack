@@ -1,9 +1,11 @@
 ﻿using Api.Data;
+using Azure;
 using Core.Handlers;
 using Core.Models;
 using Core.Requests.Categories;
 using Core.Responses;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Data;
 
 namespace Api.Handlers
@@ -54,14 +56,47 @@ namespace Api.Handlers
             }
         }
 
-        public async Task<GetAllCategoriesResponse<List<Category?>>> GetAllAsync(GetAllCategoriesRequest request)
+        public async Task<PagedResponse<List<Category?>>> GetAllAsync(GetAllCategoriesRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = context.Categories.AsNoTracking()
+                    .Where(x => x.UserId == request.UserId)
+                    .OrderBy(x => x.Title);
+
+                var allCategories = await query.ToListAsync();
+
+                //Pagination
+                var categories = await query.
+                    Skip((request.PageNumber-1) * request.PageSize).
+                    Take(request.PageSize).ToListAsync();
+
+                var count = await query.CountAsync();
+
+                return new PagedResponse<List<Category?>>(categories, count, request.PageNumber, request.PageSize); 
+            }
+            catch
+            {
+                return new PagedResponse<List<Category>>(null, 500, "Not was possible select the category!");
+            }
         }
 
         public async Task<GetCategoryByIdResponse?> GetByIdAsync(GetCategoryByIdRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                
+                var category = await context.Categories.AsNoTracking().FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == request.UserId);
+
+               return category is null 
+                    ? new GetCategoryByIdResponse(null, 404, "Category not found") 
+                    : new GetCategoryByIdResponse(category);
+
+            }
+            catch (Exception)
+            {
+                return new GetCategoryByIdResponse(null, 500, "Not possible found the category by Id");
+            }
         }
 
         public async Task<UpdateCategoryResponse?> UpdateAsync(UpdateCategoryRequest request)
@@ -79,11 +114,13 @@ namespace Api.Handlers
                 context.Categories.Update(category);
                 await context.SaveChangesAsync();
 
-                return new UpdateCategoryResponse(category, 200, message: "Category updated sucessfully" );
+                //Console.WriteLine($"Response: {JsonConvert.SerializeObject(response)}"); // Log de depuração
+
+                return new UpdateCategoryResponse(category, 200, "Category updated successfully");
 
             }
             catch (Exception)
-        {
+            {
                 return new UpdateCategoryResponse(null, 500, "Not possible update category");
             }
         }

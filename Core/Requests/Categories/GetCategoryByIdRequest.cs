@@ -8,6 +8,6 @@ namespace Core.Requests.Categories
 {
     public class GetCategoryByIdRequest : Request
     {
-        public long id {  get; set; }
+        public long Id {  get; set; }
     }
 }

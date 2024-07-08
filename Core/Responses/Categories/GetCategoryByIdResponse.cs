@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Core.Requests.Categories
 {
@@ -13,6 +15,11 @@ namespace Core.Requests.Categories
     public class GetCategoryByIdResponse : Response<Category>
     {
         public GetCategoryByIdResponse(Category? data, int code, string? message) : base(data, code, message)
+        {
+        }
+
+
+        public GetCategoryByIdResponse(Category? data) : base(data)
         {
 
         }
