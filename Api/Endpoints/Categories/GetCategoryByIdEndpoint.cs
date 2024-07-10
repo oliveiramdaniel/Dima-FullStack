@@ -21,14 +21,14 @@ namespace Api.Endpoints.Categories
         {
             var request = new GetCategoryByIdRequest
             {
-                UserId = "String10",
+                UserId = "danielmoliveira@outlook.com",
                 Id = id
             };
 
             var result = await handler.GetByIdAsync(request);
             return result.IsSucess
-                ? TypedResults.Ok(result.Data)
-                : TypedResults.BadRequest(result.Data);
+                ? TypedResults.Ok(result)
+                : TypedResults.BadRequest(result);
 
         }
     }

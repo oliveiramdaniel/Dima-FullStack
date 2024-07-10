@@ -20,13 +20,13 @@ namespace Api.Endpoints.Categories
             UpdateCategoryRequest request,
             long id)
         {
-            request.UserId = "String10";
+            request.UserId = "danielmoliveira@outlook.com";
             request.Id = id;
 
             var result = await handler.UpdateAsync(request);
             return result.IsSucess
-                ? TypedResults.Ok(result.Data)
-                : TypedResults.BadRequest(result.Data);
+                ? TypedResults.Ok(result)
+                : TypedResults.BadRequest(result);
 
         }
     }

@@ -15,7 +15,11 @@ namespace Api.Endpoints
             endpoints.MapGroup("v1/categories")
                 .WithTags("Categories")
                 //.RequireAuthorization()
-                .MapEndpoint<CreateCategoryEndpoint>();
+                .MapEndpoint<CreateCategoryEndpoint>()
+                .MapEndpoint<UpdateCategoryEndpoint>()
+                .MapEndpoint<GetCategoryByIdEndpoint>()
+                .MapEndpoint<GetAllCategoriesEndpoint>()
+                .MapEndpoint<DeleteCategoryEndpoint>();
         }
 
         private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app) 

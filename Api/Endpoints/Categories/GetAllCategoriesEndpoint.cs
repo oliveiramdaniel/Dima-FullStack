@@ -11,7 +11,7 @@ namespace Api.Endpoints.Categories
     public class GetAllCategoriesEndpoint : IEndpoint
     {
         public static void Map(IEndpointRouteBuilder app)
-             => app.MapGet("/{pageSize}", HandleAsync)
+             => app.MapGet("/", HandleAsync)
                  .WithName("Categories: Get All")
                  .WithSummary("Get all categories")
                  .WithDescription("Get all categories")
@@ -26,15 +26,15 @@ namespace Api.Endpoints.Categories
         {
             var request = new GetAllCategoriesRequest
             {
-                UserId = "String10",
+                UserId = "danielmoliveira@outlook.com",
                 PageNumber = PageNumber,
                 PageSize = pageSize
             };
 
             var result = await handler.GetAllAsync(request);
             return result.IsSucess
-                ? TypedResults.Ok(result.Data)
-                : TypedResults.BadRequest(result.Data);
+                ? TypedResults.Ok(result)
+                : TypedResults.BadRequest(result);
 
         }
     }

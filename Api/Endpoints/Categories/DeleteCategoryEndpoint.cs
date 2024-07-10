@@ -7,7 +7,7 @@ namespace Api.Endpoints.Categories
     public class DeleteCategoryEndpoint : IEndpoint
     {
         public static void Map(IEndpointRouteBuilder app)
-             => app.MapPut("/{id}", HandleAsync)
+             => app.MapDelete("/{id}", HandleAsync)
                  .WithName("Categories: Delete")
                  .WithSummary("Delete a category")
                  .WithDescription("Delete a category")
@@ -21,14 +21,14 @@ namespace Api.Endpoints.Categories
         {
             var request = new DeleteCategoryRequest
             {
-                UserId = "String10",
+                UserId = "danielmoliveira@outlook.com",
                 Id = id
             };
 
             var result = await handler.DeleteAsync(request);
             return result.IsSucess
-                ? TypedResults.Ok(result.Data)
-                : TypedResults.BadRequest(result.Data);
+                ? TypedResults.Ok(result)
+                : TypedResults.BadRequest(result);
 
         }
     }

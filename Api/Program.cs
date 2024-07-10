@@ -115,6 +115,6 @@ app.MapEndpoints();
 
 
 
-
+app.UseDeveloperExceptionPage();
 
 app.Run();

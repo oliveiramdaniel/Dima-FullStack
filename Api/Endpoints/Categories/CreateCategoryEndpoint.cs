@@ -18,10 +18,11 @@ namespace Api.Endpoints.Categories
             ICategoryHandler handler,
             CreateCategoryRequest request)
         {
+            request.UserId = "danielmoliveira@outlook.com";
             var result = await handler.CreateAsync(request);
             return result.IsSucess 
-                ? TypedResults.Created($"/{ result.Data?.Id}", result.Data) 
-                : TypedResults.BadRequest(result.Data);
+                ? TypedResults.Created($"/{ result.Data?.Id}", result) 
+                : TypedResults.BadRequest(result);
         }
     }
 }
