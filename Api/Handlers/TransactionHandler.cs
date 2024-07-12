@@ -74,7 +74,7 @@ namespace Api.Handlers
             }
         }
 
-        public async Task<PagedResponse<List<Transaction>?>> GetByPeriodRequest(GetTransactionByPeriodRequest request)
+        public async Task<PagedResponse<List<Transaction>?>> GetByPeriodAync(GetTransactionByPeriodRequest request)
         {
             try
             {

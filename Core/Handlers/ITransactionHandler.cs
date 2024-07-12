@@ -10,6 +10,6 @@ namespace Core.Handlers
         Task<Response<Transaction>> UpdateAsync(UpdateTransactionRequest request);
         Task<Response<Transaction>> DeleteAsync(DeleteTransactionRequest request);
         Task<Response<Transaction>> GetByIdAsync(GetTransactionByIdRequest request);
-        Task<PagedResponse<List<Transaction>?>> GetByPeriodRequest(GetTransactionByPeriodRequest request);
+        Task<PagedResponse<List<Transaction>?>> GetByPeriodAync(GetTransactionByPeriodRequest request);
     }
 }
