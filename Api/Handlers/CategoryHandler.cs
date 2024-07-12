@@ -1,11 +1,9 @@
 ﻿using Api.Data;
-using Azure;
 using Core.Handlers;
 using Core.Models;
 using Core.Requests.Categories;
 using Core.Responses;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using System.Data;
 
 namespace Api.Handlers
@@ -119,7 +117,7 @@ namespace Api.Handlers
                 return new UpdateCategoryResponse(category, 200, "Category updated successfully");
 
             }
-            catch (Exception)
+            catch
             {
                 return new UpdateCategoryResponse(null, 500, "Not possible update category");
             }

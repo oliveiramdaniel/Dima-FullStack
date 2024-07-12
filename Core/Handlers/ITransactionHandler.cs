@@ -1,12 +1,6 @@
-﻿using Core.Requests;
+﻿using Core.Models;
 using Core.Requests.Transactions;
 using Core.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace Core.Handlers
 {
