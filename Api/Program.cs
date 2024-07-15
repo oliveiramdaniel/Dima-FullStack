@@ -10,13 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 var cnnStr = builder.Configuration.
     GetConnectionString(name: "DefaultConnection") ?? string.Empty;
 
-
-builder.Services.AddDbContext<AppDbContext>(
-    optionsAction:x =>
-    {
-        x.UseSqlServer(cnnStr);
-    });
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(x =>
 {
@@ -25,7 +18,14 @@ builder.Services.AddSwaggerGen(x =>
 
 builder.Services
     .AddAuthentication(IdentityConstants.ApplicationScheme)
-    .AddIdentityCookies() ; //JWT Barrer
+    .AddIdentityCookies(); //JWT Barrer
+
+builder.Services.AddDbContext<AppDbContext>(
+    optionsAction:x =>
+    {
+        x.UseSqlServer(cnnStr);
+    });
+
 builder.Services.AddAuthorization();
 
 //Dependecy Injection
