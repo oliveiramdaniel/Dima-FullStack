@@ -1,13 +1,9 @@
 using Api.Data;
 using Api.Endpoints;
 using Api.Handlers;
-using Azure;
 using Core.Handlers;
-using Core.Models;
-using Core.Requests.Categories;
-using Core.Responses;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +22,11 @@ builder.Services.AddSwaggerGen(x =>
 {
     x.CustomSchemaIds(n => n.FullName);
 });
+
+builder.Services
+    .AddAuthentication(IdentityConstants.ApplicationScheme)
+    .AddIdentityCookies() ; //JWT Barrer
+builder.Services.AddAuthorization();
 
 //Dependecy Injection
 builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
