@@ -91,8 +91,17 @@ namespace Api.Handlers
             try
             {
                 var query = context.Transactions.AsNoTracking().
-                        Where(x => x.CreatedAt >= request.StartDate && x.CreatedAt >= request.EndDate && x.UserId == request.UserId)
+                        Where(x => x.CreatedAt >= request.StartDate && x.CreatedAt <= request.EndDate && x.UserId == request.UserId)
                         .OrderBy(x => x.CreatedAt);
+
+                var results = query.ToList();
+
+                foreach (var result in results)
+                {
+                    var logMessage = $"Transaction ID: {result.Id}, User ID: {result.UserId}, Created At: {result.CreatedAt}";
+                    Console.WriteLine(logMessage);
+                }
+
 
                 var transactions = await query
                     .Skip((request.PageNumber - 1) * request.PageSize)
