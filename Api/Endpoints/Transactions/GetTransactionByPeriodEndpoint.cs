@@ -6,6 +6,7 @@ using Core.Requests.Categories;
 using Core.Requests.Transactions;
 using Core.Responses;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Api.Endpoints.Transactions
 {
@@ -21,6 +22,7 @@ namespace Api.Endpoints.Transactions
 
 
         private static async Task<IResult> HandleAsync(
+            ClaimsPrincipal user,
             ITransactionHandler handler,
             [FromQuery] DateTime? startDate = null,
             [FromQuery] DateTime? endDate = null,
@@ -29,7 +31,7 @@ namespace Api.Endpoints.Transactions
         {
             var request = new GetTransactionByPeriodRequest
             {
-                UserId = "danielmoliveira@outlook.com",
+                UserId = user.Identity?.Name ?? string.Empty,
                 PageNumber = PageNumber,
                 PageSize = pageSize,
                 StartDate = startDate,

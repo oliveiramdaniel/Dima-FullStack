@@ -1,6 +1,8 @@
 ﻿using Api.Common.Api;
+using Api.Models;
 using Core.Handlers;
 using Core.Requests.Categories;
+using System.Security.Claims;
 
 namespace Api.Endpoints.Categories
 {
@@ -16,11 +18,12 @@ namespace Api.Endpoints.Categories
       
 
         private static async Task<IResult> HandleAsync(
+            ClaimsPrincipal user,
             ICategoryHandler handler,
             UpdateCategoryRequest request,
             long id)
         {
-            request.UserId = "danielmoliveira@outlook.com";
+            request.UserId = user.Identity?.Name ?? string.Empty;
             request.Id = id;
 
             var result = await handler.UpdateAsync(request);

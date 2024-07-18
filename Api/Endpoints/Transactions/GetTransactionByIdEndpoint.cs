@@ -4,6 +4,7 @@ using Core.Models;
 using Core.Requests.Categories;
 using Core.Requests.Transactions;
 using Core.Responses;
+using System.Security.Claims;
 
 namespace Api.Endpoints.Transactions
 {
@@ -19,11 +20,13 @@ namespace Api.Endpoints.Transactions
 
 
         private static async Task<IResult> HandleAsync(
+            ClaimsPrincipal user,
             ITransactionHandler handler,
             long id)
         {
             var request = new GetTransactionByIdRequest
             {
+                UserId = user.Identity?.Name ?? string.Empty,
                 Id = id
             };
 

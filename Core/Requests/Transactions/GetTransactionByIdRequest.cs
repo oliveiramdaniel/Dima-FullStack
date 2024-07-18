@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Requests.Transactions
 {
-    public class GetTransactionByIdRequest
+    public class GetTransactionByIdRequest : Request
     {
         public long Id { get; set; }
     }

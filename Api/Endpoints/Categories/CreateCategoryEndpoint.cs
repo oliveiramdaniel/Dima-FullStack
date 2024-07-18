@@ -1,6 +1,7 @@
 ﻿using Api.Common.Api;
 using Core.Handlers;
 using Core.Requests.Categories;
+using System.Security.Claims;
 
 namespace Api.Endpoints.Categories
 {
@@ -15,10 +16,11 @@ namespace Api.Endpoints.Categories
                 .Produces<CreateCategoryResponse?>();
 
         public static async Task<IResult> HandleAsync(
+            ClaimsPrincipal user,
             ICategoryHandler handler,
             CreateCategoryRequest request)
         {
-            request.UserId = "danielmoliveira@outlook.com";
+            request.UserId = user.Identity?.Name ?? string.Empty;
             var result = await handler.CreateAsync(request);
             return result.IsSucess 
                 ? TypedResults.Created($"/{ result.Data?.Id}", result) 

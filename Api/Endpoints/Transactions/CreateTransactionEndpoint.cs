@@ -4,6 +4,7 @@ using Core.Models;
 using Core.Requests.Categories;
 using Core.Requests.Transactions;
 using Core.Responses;
+using System.Security.Claims;
 
 namespace Api.Endpoints.Transactions
 {
@@ -18,10 +19,11 @@ namespace Api.Endpoints.Transactions
                 .Produces<Response<Transaction?>>();
 
         public static async Task<IResult> HandleAsync(
+            ClaimsPrincipal user,
             ITransactionHandler handler,
             CreateTransactionRequest request)
         {
-            request.UserId = "danielmoliveira@outlook.com";
+            request.UserId = user.Identity?.Name ?? string.Empty;
             var result = await handler.CreateAsync(request);
             return result.IsSucess
                 ? TypedResults.Created($"/{result.Data?.Id}", result)
