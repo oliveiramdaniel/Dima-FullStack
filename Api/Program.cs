@@ -1,49 +1,52 @@
 using Api.Common.Api;
-using Api.Data;
 using Api.Endpoints;
-using Api.Handlers;
 using Api.Models;
-using Core;
-using Core.Handlers;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddConfiguration();
+builder.AddSecutiry();
+builder.AddDataContext();
+builder.AddCrossOrigin();
+builder.AddDocumentation();
+builder.AddServices();
+
 
 //var cnnStr = builder.Configuration.
 //    GetConnectionString(name: "DefaultConnection") ?? string.Empty;
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(x =>
-{
-    x.CustomSchemaIds(n => n.FullName);
-});
+//builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen(x =>
+//{
+//    x.CustomSchemaIds(n => n.FullName);
+//});
 
-builder.Services
-    .AddAuthentication(IdentityConstants.ApplicationScheme)
-    .AddIdentityCookies(); //JWT Barrer
+//builder.Services
+//    .AddAuthentication(IdentityConstants.ApplicationScheme)
+//    .AddIdentityCookies(); //JWT Barrer
 
-builder.Services.AddDbContext<AppDbContext>(
-    optionsAction:x =>
-    {
-        x.UseSqlServer(Configuration.ConnectionString);
-    });
-
-builder.Services.AddAuthorization();
+//builder.Services.AddDbContext<AppDbContext>(
+//    optionsAction:x =>
+//    {
+//        x.UseSqlServer(Configuration.ConnectionString);
+//    });
 
 
-builder.Services
-    .AddIdentityCore<User>()
-    .AddRoles<IdentityRole<long>>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddApiEndpoints();
+//builder.Services
+//    .AddIdentityCore<User>()
+//    .AddRoles<IdentityRole<long>>()
+//    .AddEntityFrameworkStores<AppDbContext>()
+//    .AddApiEndpoints();
 
-//Dependecy Injection
-builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
-builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
+//builder.Services.AddAuthorization();
+
+
+
+
+////Dependecy Injection
+//builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
+//builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
 
 var app = builder.Build();
 
