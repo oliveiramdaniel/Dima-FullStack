@@ -20,7 +20,7 @@ namespace Api.Data.Mappings.Identity
             builder.Property(u => u.Email).HasMaxLength(180);
             builder.Property(u => u.NormalizedEmail).HasMaxLength(180);
             builder.Property(u => u.UserName).HasMaxLength(180);
-            builder.Property(u => u.NormalizedUserName).HasMaxLength(20);
+            builder.Property(u => u.NormalizedUserName).HasMaxLength(180);
             builder.Property(u => u.PhoneNumber).HasMaxLength(20);
             builder.Property(u => u.ConcurrencyStamp).IsConcurrencyToken();
 
