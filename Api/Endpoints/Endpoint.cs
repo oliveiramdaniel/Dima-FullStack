@@ -1,8 +1,8 @@
 ﻿using Api.Common.Api;
 using Api.Endpoints.Categories;
+using Api.Endpoints.Identity;
 using Api.Endpoints.Transactions;
-using Core.Models;
-using System.Runtime.CompilerServices;
+using Api.Models;
 
 namespace Api.Endpoints
 {
@@ -33,6 +33,16 @@ namespace Api.Endpoints
                 .MapEndpoint<GetTransactionByIdEndpoint>()
                 .MapEndpoint<GetTransactionByPeriodEndpoint>()
                 .MapEndpoint<DeleteTransactionEndpoint>();
+
+
+            endpoints.MapGroup("v1/identity")
+                .WithTags("Identity")
+                .MapIdentityApi<User>();
+
+            endpoints.MapGroup("v1/identity")
+                .WithTags("Identity")
+                .MapEndpoint<LogoutEndpoint>()
+                .MapEndpoint<GetRolesEndpoint>();
         }
 
         private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app) 
