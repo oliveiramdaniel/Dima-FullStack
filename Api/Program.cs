@@ -1,7 +1,9 @@
+using Api.Common.Api;
 using Api.Data;
 using Api.Endpoints;
 using Api.Handlers;
 using Api.Models;
+using Core;
 using Core.Handlers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -9,9 +11,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddConfiguration();
 
-var cnnStr = builder.Configuration.
-    GetConnectionString(name: "DefaultConnection") ?? string.Empty;
+//var cnnStr = builder.Configuration.
+//    GetConnectionString(name: "DefaultConnection") ?? string.Empty;
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(x =>
@@ -26,7 +29,7 @@ builder.Services
 builder.Services.AddDbContext<AppDbContext>(
     optionsAction:x =>
     {
-        x.UseSqlServer(cnnStr);
+        x.UseSqlServer(Configuration.ConnectionString);
     });
 
 builder.Services.AddAuthorization();
