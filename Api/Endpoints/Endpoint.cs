@@ -12,6 +12,8 @@ namespace Api.Endpoints
         public static void MapEndpoints(this WebApplication app)
         {
             var endpoints = app.MapGroup("");
+            
+            endpoints.WithTags("Helth Check").MapGet("/", () => new { Message = "OK" });
 
             endpoints.MapGroup("v1/categories")
                 .WithTags("Categories")

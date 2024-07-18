@@ -50,49 +50,57 @@ builder.AddServices();
 
 var app = builder.Build();
 
-app.UseAuthentication();
-app.UseAuthorization();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if(app.Environment.IsDevelopment())
+{
+    app.ConfigureDevEnvironment();
+}
 
-app.MapGet("/", () => new { Message = "OK" });
+app.UseSecurity();
 
+//app.UseAuthentication();
+//app.UseAuthorization();
+
+//app.UseSwagger();
+//app.UseSwaggerUI();
+
+//app.MapGet("/", () => new { Message = "OK" });
 app.MapEndpoints();
-app.MapGroup("v1/identity")
-    .WithTags("Identity")
-    .MapIdentityApi<User>();
 
-app.MapGroup("v1/identity")
-    .WithTags("Identity")
-    .MapPost("/logout", async (
-        SignInManager<User> signInManager) =>
-        {
-            await signInManager.SignOutAsync();
-            return Results.Ok();
-        })
-        .RequireAuthorization();
+//app.MapGroup("v1/identity")
+//    .WithTags("Identity")
+//    .MapIdentityApi<User>();
 
-app.MapGroup("v1/identity")
-    .WithTags("Identity")
-    .MapGet("/roles", ( ClaimsPrincipal user ) =>
-        {
-            if (user.Identity is null || !user.Identity.IsAuthenticated)
-                return Results.Ok();
+//app.MapGroup("v1/identity")
+//    .WithTags("Identity")
+//    .MapPost("/logout", async (
+//        SignInManager<User> signInManager) =>
+//        {
+//            await signInManager.SignOutAsync();
+//            return Results.Ok();
+//        })
+//        .RequireAuthorization();
 
-            var identity = user.Identity as ClaimsIdentity;
-            var roles = identity.FindAll(identity.RoleClaimType).Select(c => new
-            {
-                c.Issuer,
-                c.OriginalIssuer,
-                c.Type,
-                c.Value,
-                c.ValueType
-            });
+//app.MapGroup("v1/identity")
+//    .WithTags("Identity")
+//    .MapGet("/roles", ( ClaimsPrincipal user ) =>
+//        {
+//            if (user.Identity is null || !user.Identity.IsAuthenticated)
+//                return Results.Ok();
 
-            return TypedResults.Json(roles);
-        })
-        .RequireAuthorization();
+//            var identity = user.Identity as ClaimsIdentity;
+//            var roles = identity.FindAll(identity.RoleClaimType).Select(c => new
+//            {
+//                c.Issuer,
+//                c.OriginalIssuer,
+//                c.Type,
+//                c.Value,
+//                c.ValueType
+//            });
+
+//            return TypedResults.Json(roles);
+//        })
+//        .RequireAuthorization();
 
 
 app.UseDeveloperExceptionPage();
