@@ -1,3 +1,4 @@
+using Api;
 using Api.Common.Api;
 using Api.Endpoints;
 using Api.Models;
@@ -20,6 +21,7 @@ if(app.Environment.IsDevelopment())
     app.ConfigureDevEnvironment();
 }
 
+app.UseCors(ApiConfiguration.CorsPolicyName);
 app.UseSecurity();
 
 app.MapEndpoints();

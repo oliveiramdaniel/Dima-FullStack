@@ -8,13 +8,26 @@ namespace Api.Endpoints.Identity
     public class GetRolesEndpoint : IEndpoint
     {
         public static void Map(IEndpointRouteBuilder app) =>
-        app.MapGet("/roles", HandleAsync)
+        app.MapGet("/roles", Handle)
             .RequireAuthorization();
 
-        public static async Task<IResult> HandleAsync(ClaimsPrincipal user)
+        public static Task<IResult> Handle(ClaimsPrincipal user)
         {
-            await signInManager.SignOutAsync();
-            return Results.Ok();
+
+            if (user.Identity is null || !user.Identity.IsAuthenticated)
+                return Task.FromResult(Results.Unauthorized());
+
+            var identity = user.Identity as ClaimsIdentity;
+            var roles = identity.FindAll(identity.RoleClaimType).Select(c => new
+            {
+                c.Issuer,
+                c.OriginalIssuer,
+                c.Type,
+                c.Value,
+                c.ValueType
+            });
+
+            return Task.FromResult<IResult>(TypedResults.Json(roles));
         }
     }
 }

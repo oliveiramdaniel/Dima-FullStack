@@ -13,5 +13,9 @@ namespace Core
         public const int DefaultPageSize = 25;
 
         public static string ConnectionString { get; set; }
+
+        public static string BackendUrl { get; set; }
+
+        public static string FrontendUrl { get; set; }
     }
 }
