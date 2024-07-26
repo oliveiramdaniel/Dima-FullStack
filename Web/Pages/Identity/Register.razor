@@ -1,4 +1,4 @@
-﻿@page "/login"
+﻿@page "/register"
 @layout HeadlessLayout
 
 <PageTitle> Dima - Enter</PageTitle>
@@ -7,16 +7,16 @@
     <MudItem xs="12" sm="12" md="8" lg="6" xl="6" xxl="6">
         <MudPaper Class="mud-width-full pa-8">
             <div class="d-flex justify-center pb-8 pt-8">
-                <img src="imgs/dima.png" alt="Dima - Financial Controller" width="200"/>
+                <img src="imgs/dima.png" alt="Dima - Financial Controller" width="200" />
             </div>
             <MudForm @ref="_mudForm">
-                <MudTextField T="string" Label="E-mail" InputType="InputType.Email"  Required="true" RequiredError="Invalid Email" />
+                <MudTextField T="string" Label="E-mail" InputType="InputType.Email" Required="true" RequiredError="Invalid Email" />
                 <MudTextField T="string" Label="Password" InputType="InputType.Password" Required="true" RequiredError="Invalid Password" />
             </MudForm>
             <div class="d-flex mt-8">
-                 <MudButton Variant="Variant.Filled" Color="Color.Primary">Enter</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary">Start</MudButton>
                 <MudSpacer />
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/register">Register</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/login">I have account</MudButton>
             </div>
         </MudPaper>
     </MudItem>
