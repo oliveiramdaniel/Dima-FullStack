@@ -12,6 +12,11 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddMudServices();
 
+builder.Services.AddHttpClient("", opt =>
+{
+    opt.BaseAddress = new Uri(Configuration.BackendUrl);
+}).AddHttpMessageHandler<CookieHandler>(); //Send authentication by cookies
+
 await builder.Build().RunAsync();
 
 
