@@ -3,6 +3,7 @@ using Core.Requests;
 using Core.Requests.Account;
 using Core.Responses;
 using System.Net.Http.Json;
+using System.Text;
 
 namespace Web.Handlers
 {
@@ -19,15 +20,16 @@ namespace Web.Handlers
 
         public async Task LogoutAsync()
         {
-            throw new NotImplementedException();
+            var emptyContent = new StringContent("{}", Encoding.UTF8,mediaType:"application/json" );
+            await _client.PostAsync("v1/identity/logout", emptyContent);
         }
 
-        public Task<Response<string>> RegisterAsync(RegisterRequest request)
+        public async Task<Response<string>> RegisterAsync(RegisterRequest request)
         {
             var result = await _client.PostAsJsonAsync("v1/identity/register", request);
             return result.IsSuccessStatusCode
-                ? new Response<string>("Login Sucessfully!", 200, "Login Sucessfully!")
-                : new Response<string>("", 400, "Invalid Login");
+                ? new Response<string>("Register Sucessfully!", 201, "Register Sucessfully!")
+                : new Response<string>("", 400, "Invalid Register");
             
         }
     }
