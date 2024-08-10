@@ -40,6 +40,7 @@ namespace Web.Security
         {
             try
             {                 
+                
                 return await _client.GetFromJsonAsync<User>("v1/identity/manager/info");
             }
             catch (Exception)

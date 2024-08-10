@@ -1,13 +1,12 @@
 ﻿using Core.Handlers;
 using Core.Requests.Account;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 using Web.Security;
 
 namespace Web.Pages.Identity
 {
-    public partial class RegisterPage : ComponentBase
+    public partial class LoginPage : ComponentBase
     {
         #region Dependencies
         [Inject]
@@ -25,16 +24,16 @@ namespace Web.Pages.Identity
 
         #region Properties
         public bool IsBusy { get; set; } = false;
-        public RegisterRequest InputModel { get; set; } = new RegisterRequest();
+        public LoginRequest InputModel { get; set; } = new();
         #endregion
 
         #region overrides
-        protected override  async Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var user = authState.User;
 
-            if (user.Identity is {IsAuthenticated: true})
+            if (user.Identity is { IsAuthenticated: true })
                 NavigationManager.NavigateTo("/");
         }
         #endregion
@@ -45,12 +44,13 @@ namespace Web.Pages.Identity
 
             try
             {
-                var result = await Handler.RegisterAsync(InputModel);
+                var result = await Handler.LoginAsync(InputModel);
 
                 if (result.IsSucess)
                 {
-                    Snackbar.Add(result.Message, Severity.Success);
-                    NavigationManager.NavigateTo("/login");
+                    await AuthenticationStateProvider.GetAuthenticationStateAsync();
+                    AuthenticationStateProvider.NotifyAuthenticationStateChanged();
+                    NavigationManager.NavigateTo("/");
                 }
                 else
                     Snackbar.Add(result.Message, Severity.Error);

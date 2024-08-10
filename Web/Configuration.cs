@@ -6,7 +6,7 @@ namespace Web
     {
         public const string HttpClientName = "dima";
 
-        public static string BackendUrl = "https://localhost:7192";
+        public static string BackendUrl = "http://localhost:5107";
 
         public static MudTheme Theme = new()
         {
