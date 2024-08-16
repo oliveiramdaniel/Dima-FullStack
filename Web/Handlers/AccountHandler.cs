@@ -2,6 +2,7 @@
 using Core.Requests;
 using Core.Requests.Account;
 using Core.Responses;
+using System.Diagnostics;
 using System.Net.Http.Json;
 using System.Text;
 
@@ -21,7 +22,15 @@ namespace Web.Handlers
         public async Task LogoutAsync()
         {
             var emptyContent = new StringContent("{}", Encoding.UTF8,mediaType:"application/json" );
-            await _client.PostAsync("v1/identity/logout", emptyContent);
+            var response = await _client.PostAsync("v1/identity/logout", emptyContent);
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.WriteLine("Logout successful.");
+            }
+            else
+            {
+                Debug.WriteLine($"Logout failed with status code: {response.StatusCode}");
+            }
         }
 
         public async Task<Response<string>> RegisterAsync(RegisterRequest request)
