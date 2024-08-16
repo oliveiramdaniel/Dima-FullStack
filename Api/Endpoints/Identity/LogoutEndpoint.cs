@@ -8,26 +8,15 @@ namespace Api.Endpoints.Identity
 {
     public class LogoutEndpoint : IEndpoint
     {
-        public static void Map(IEndpointRouteBuilder app) =>
-        app.MapPost("/logout", Handle)
-            .RequireAuthorization();
+        public static void Map(IEndpointRouteBuilder app)
+            => app
+                .MapPost("/logout", HandleAsync)
+                .RequireAuthorization();
 
-        public static Task<IResult> Handle(ClaimsPrincipal user)
+        private static async Task<IResult> HandleAsync(SignInManager<User> signInManager)
         {
-            if (user.Identity is null || !user.Identity.IsAuthenticated)
-                return Task.FromResult(Results.Unauthorized());
-
-            var identity = user.Identity as ClaimsIdentity;
-            var roles = identity.FindAll(identity.RoleClaimType).Select(c => new
-            {
-                c.Issuer,
-                c.OriginalIssuer,
-                c.Type,
-                c.Value,
-                c.ValueType
-            });
-
-            return Task.FromResult<IResult>(TypedResults.Json(roles));
+            await signInManager.SignOutAsync();
+            return Results.Ok();
         }
     }
 }

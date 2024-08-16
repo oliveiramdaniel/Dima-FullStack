@@ -1,6 +1,7 @@
 ﻿using Core.Handlers;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using System.Diagnostics;
 using Web.Security;
 
 namespace Web.Pages.Identity
@@ -24,15 +25,26 @@ namespace Web.Pages.Identity
         #region overrides
         protected override async Task OnInitializedAsync()
         {
-            if (await AuthenticationStateProvider.CheckAuthenticatdAsync())
+            try 
             {
+                if (await AuthenticationStateProvider.CheckAuthenticatdAsync())
+                {
+                    await Handler.LogoutAsync();
+                    await AuthenticationStateProvider.GetAuthenticationStateAsync();
+                    AuthenticationStateProvider.NotifyAuthenticationStateChanged();
+                }
+                else
+                {
+                    Debug.WriteLine("User is not authenticated.");
+                }
 
-                await Handler.LogoutAsync();
-                await AuthenticationStateProvider.GetAuthenticationStateAsync();
-                AuthenticationStateProvider.NotifyAuthenticationStateChanged();
+                NavigationManager.NavigateTo("/");
             }
-
-            await base.OnInitializedAsync();
+            catch (Exception ex) 
+            {
+                Debug.WriteLine($"An error occurred during logout: {ex.Message}");
+                Snackbar.Add("An error occurred during logout.", Severity.Error);
+            }
         }
         #endregion
     }
