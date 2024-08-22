@@ -1,4 +1,5 @@
 using Core.Handlers;
+using Dima.Web.Handlers;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -31,5 +32,7 @@ builder.Services.AddHttpClient(Configuration.HttpClientName, opt =>
 }).AddHttpMessageHandler<CookieHandler>(); //Send authentication by cookies
 
 builder.Services.AddTransient<IAccountHandler, AccountHandler>();
+builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
+builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
 
 await builder.Build().RunAsync();
