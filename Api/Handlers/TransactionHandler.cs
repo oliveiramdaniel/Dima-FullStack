@@ -78,7 +78,7 @@ namespace Api.Handlers
         {
             try
             {
-                //Caso StardDate e EndDate não sejam informados, a data atual será utilizada
+                //If StardDate and EndDate are not informed, the current date will be used
                 request.StartDate ??= DateTime.Now.GetFirstDay();
                 request.EndDate ??= DateTime.Now.GetLastDay();
 
