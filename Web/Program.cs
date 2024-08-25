@@ -1,5 +1,5 @@
 using Core.Handlers;
-using Dima.Web.Handlers;
+using Web.Handlers;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

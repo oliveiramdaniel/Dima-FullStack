@@ -14,6 +14,10 @@ namespace Core.Requests.Categories
     //This category will be use on Api and UI
     public class GetCategoryByIdResponse : Response<Category>
     {
+        public GetCategoryByIdResponse() : base()
+        {
+        }
+
         public GetCategoryByIdResponse(Category? data, int code, string? message) : base(data, code, message)
         {
         }
