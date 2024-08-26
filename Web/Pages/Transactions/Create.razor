@@ -20,22 +20,10 @@
                       @bind-Value="InputModel.Amount"
                       For="@(() => InputModel.Amount)" />
 
-         @* <MudDatePicker Label="When?"
+        <MudDatePicker Label="When?"
+                       Editable="true"
                        @bind-Date="@InputModel.PaidOrReceiveAt"
-                       HelperText="Select the date the amount will be paid or received" /> *@
-
-
-        <MudDatePicker @bind-Date="selectedDate" Label="Select a Date" />
-
-        @if (selectedDate.HasValue)
-        {
-            <p>Selected Date: @selectedDate.Value.ToShortDateString()</p>
-        }
-
-        @code {
-        private DateTime? selectedDate;
-        }
-
+                       HelperText="Select the date the amount will be paid or received" />
 
         <MudSelect T="ETransactionType"
                    Label="Type of Movement"

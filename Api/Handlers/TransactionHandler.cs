@@ -5,6 +5,7 @@ using Core.Models;
 using Core.Requests.Transactions;
 using Core.Responses;
 using Microsoft.EntityFrameworkCore;
+using Core.Enums;
 
 namespace Api.Handlers
 {
@@ -12,6 +13,10 @@ namespace Api.Handlers
     {
         public async Task<Response<Transaction?>> CreateAsync(CreateTransactionRequest request)
         {
+
+            if (request is {  Type: ETransactionType.Withdraw, Amount: >= 0})
+                request.Amount *= -1;
+
             try
             {
                 var transaction = new Transaction
@@ -121,6 +126,9 @@ namespace Api.Handlers
 
         public async Task<Response<Transaction?>> UpdateAsync(UpdateTransactionRequest request)
         {
+            if (request is { Type: ETransactionType.Withdraw, Amount: >= 0 })
+                request.Amount *= -1;
+
             try
             {
                 var transaction = await context.Transactions.FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == request.UserId);
