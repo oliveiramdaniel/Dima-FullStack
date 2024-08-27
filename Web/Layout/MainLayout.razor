@@ -20,6 +20,13 @@
                     OnClick="ToggleDrawer" />
                 Dima
                 <MudSpacer />
+
+                <MudButton Href="/releases/new" 
+                    
+                    StartIcon="@Icons.Material.TwoTone.Add">
+                    NEW RELEASE
+                </MudButton>
+
                 <MudText Typo="Typo.caption">
                     @context.User.Identity?.Name
                 </MudText>
