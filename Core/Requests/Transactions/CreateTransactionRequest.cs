@@ -14,8 +14,8 @@ namespace Core.Requests.Transactions
         public string Title { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Invalid Type")]
-        public ETransactionType Type { get; set; }
-        
+        public ETransactionType Type { get; set; } = ETransactionType.Withdraw;
+
         [Required(ErrorMessage = "Invalid Amount")]
         public decimal Amount { get; set; }
         

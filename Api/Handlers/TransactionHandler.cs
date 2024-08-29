@@ -5,6 +5,7 @@ using Core.Models;
 using Core.Requests.Transactions;
 using Core.Responses;
 using Microsoft.EntityFrameworkCore;
+using Core.Enums;
 
 namespace Api.Handlers
 {
@@ -12,6 +13,10 @@ namespace Api.Handlers
     {
         public async Task<Response<Transaction?>> CreateAsync(CreateTransactionRequest request)
         {
+
+            if (request is {  Type: ETransactionType.Withdraw, Amount: >= 0})
+                request.Amount *= -1;
+
             try
             {
                 var transaction = new Transaction
@@ -78,7 +83,7 @@ namespace Api.Handlers
         {
             try
             {
-                //Caso StardDate e EndDate não sejam informados, a data atual será utilizada
+                //If StardDate and EndDate are not informed, the current date will be used
                 request.StartDate ??= DateTime.Now.GetFirstDay();
                 request.EndDate ??= DateTime.Now.GetLastDay();
 
@@ -91,8 +96,8 @@ namespace Api.Handlers
             try
             {
                 var query = context.Transactions.AsNoTracking().
-                        Where(x => x.CreatedAt >= request.StartDate && x.CreatedAt <= request.EndDate && x.UserId == request.UserId)
-                        .OrderBy(x => x.CreatedAt);
+                        Where(x => x.PaidOrReceivedAt >= request.StartDate && x.PaidOrReceivedAt <= request.EndDate && x.UserId == request.UserId)
+                        .OrderBy(x => x.PaidOrReceivedAt);
 
                 var results = query.ToList();
 
@@ -121,6 +126,9 @@ namespace Api.Handlers
 
         public async Task<Response<Transaction?>> UpdateAsync(UpdateTransactionRequest request)
         {
+            if (request is { Type: ETransactionType.Withdraw, Amount: >= 0 })
+                request.Amount *= -1;
+
             try
             {
                 var transaction = await context.Transactions.FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == request.UserId);

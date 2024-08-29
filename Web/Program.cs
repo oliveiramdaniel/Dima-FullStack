@@ -1,10 +1,10 @@
 using Core.Handlers;
+using Web.Handlers;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using Web;
-using Web.Handlers;
 using Web.Security;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -31,5 +31,9 @@ builder.Services.AddHttpClient(Configuration.HttpClientName, opt =>
 }).AddHttpMessageHandler<CookieHandler>(); //Send authentication by cookies
 
 builder.Services.AddTransient<IAccountHandler, AccountHandler>();
+builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
+builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
+
+builder.Services.AddLocalization();
 
 await builder.Build().RunAsync();
