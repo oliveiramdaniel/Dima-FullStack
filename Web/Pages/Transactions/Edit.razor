@@ -1,16 +1,16 @@
-@page "/transactions/new"
-@inherits CreateTransactionPage
+@page "/transactions/edit/{id}"
+@inherits EditTransactionPage
 
-<MudText Typo="Typo.h3">New Transaction</MudText>
+<MudText Typo="Typo.h3">Edit Transaction</MudText>
 
 <MudPaper Class="pa-8 mt-4">
     <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
-        <DataAnnotationsValidator />
+        <DataAnnotationsValidator/>
 
         <MudTextField Label="Title"
                       HelperText="Required field"
                       @bind-Value="InputModel.Title"
-                      For="@(() => InputModel.Title)" />
+                      For="@(() => InputModel.Title)"/>
 
         <MudTextField Label="How much?"
                       T="decimal"
@@ -24,9 +24,9 @@
                        Editable="true"
                        @bind-Date="@InputModel.PaidOrReceiveAt"
                        HelperText="Select the date the amount will be paid or received" />
-
+        
         <MudSelect T="ETransactionType"
-                   Label="Type of Movement"
+                   Label="Type of Moviment"
                    AnchorOrigin="Origin.BottomCenter"
                    @bind-Value="InputModel.Type">
             <MudSelectItem T="ETransactionType" Value="ETransactionType.Deposit">
@@ -37,10 +37,11 @@
             </MudSelectItem>
         </MudSelect>
         
-        <MudSelect T="long"
-                   Label="Category"
-                   @bind-Value="InputModel.CategoryId"
-                   AnchorOrigin="Origin.BottomCenter">
+        <MudSelect 
+            T="long" 
+            Label="Category" 
+            @bind-Value="InputModel.CategoryId"
+            AnchorOrigin="Origin.BottomCenter">
             @foreach (var category in Categories)
             {
                 <MudSelectItem T="long" Value="@category.Id">
@@ -53,7 +54,7 @@
                    Variant="Variant.Filled"
                    Color="Color.Primary"
                    Class="mt-4">
-            Save
-        </MudButton> 
+            Salve
+        </MudButton>
     </EditForm>
 </MudPaper>

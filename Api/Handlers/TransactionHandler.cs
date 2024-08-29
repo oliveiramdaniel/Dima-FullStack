@@ -96,8 +96,8 @@ namespace Api.Handlers
             try
             {
                 var query = context.Transactions.AsNoTracking().
-                        Where(x => x.CreatedAt >= request.StartDate && x.CreatedAt <= request.EndDate && x.UserId == request.UserId)
-                        .OrderBy(x => x.CreatedAt);
+                        Where(x => x.PaidOrReceivedAt >= request.StartDate && x.PaidOrReceivedAt <= request.EndDate && x.UserId == request.UserId)
+                        .OrderBy(x => x.PaidOrReceivedAt);
 
                 var results = query.ToList();
 

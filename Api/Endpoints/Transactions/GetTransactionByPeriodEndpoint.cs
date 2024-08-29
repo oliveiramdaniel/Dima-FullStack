@@ -2,7 +2,6 @@
 using Core;
 using Core.Handlers;
 using Core.Models;
-using Core.Requests.Categories;
 using Core.Requests.Transactions;
 using Core.Responses;
 using Microsoft.AspNetCore.Mvc;

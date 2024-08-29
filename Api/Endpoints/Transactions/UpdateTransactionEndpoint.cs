@@ -3,6 +3,7 @@ using Core.Handlers;
 using Core.Models;
 using Core.Requests.Transactions;
 using Core.Responses;
+using System.Security.Claims;
 
 namespace Api.Endpoints.Transactions
 {
@@ -18,11 +19,12 @@ namespace Api.Endpoints.Transactions
 
 
         private static async Task<IResult> HandleAsync(
+            ClaimsPrincipal user,
             ITransactionHandler handler,
             UpdateTransactionRequest request,
             long id)
         {
-            request.UserId = "danielmoliveira@outlook.com";
+            request.UserId = user.Identity?.Name ?? string.Empty;
             request.Id = id;
 
             var result = await handler.UpdateAsync(request);

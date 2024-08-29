@@ -1,4 +1,4 @@
-@page "/releases/history"
+@page "/transactions/history"
 @inherits ListTransactionsPage
 
 <MudText Typo="Typo.h3">Releases</MudText>
@@ -87,7 +87,7 @@
                 <MudStack Row>
                     <MudIconButton Icon="@Icons.Material.Filled.Edit"
                                    Color="Color.Primary"
-                                   Href="@($"/releases/edit/{context.Item.Id}")">
+                                   Href="@($"/transactions/edit/{context.Item.Id}")">
                     </MudIconButton>
                     <MudIconButton
                         Icon="@Icons.Material.Filled.Delete"
