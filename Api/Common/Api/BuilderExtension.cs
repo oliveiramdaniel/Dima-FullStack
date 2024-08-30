@@ -59,6 +59,8 @@ namespace Api.Common.Api
             //Dependecy Injection
             builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
             builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
+            builder.Services.AddTransient<IReportHandler, ReportHandler>();
+
         }
 
         public static void AddCrossOrigin(this WebApplicationBuilder builder)

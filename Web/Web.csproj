@@ -29,6 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Components\Reports\ExpensesByCategoryChart.razor" />
+    <None Include="Components\Reports\IncomesAndExpensesChart.razor" />
+    <None Include="Components\Reports\IncomesByCategoryChart.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 

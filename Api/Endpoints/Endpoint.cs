@@ -1,8 +1,10 @@
 ﻿using Api.Common.Api;
 using Api.Endpoints.Categories;
 using Api.Endpoints.Identity;
+using Api.Endpoints.Reports;
 using Api.Endpoints.Transactions;
 using Api.Models;
+using Dima.Api.Endpoints.Reports;
 
 namespace Api.Endpoints
 {
@@ -43,6 +45,14 @@ namespace Api.Endpoints
                 .WithTags("Identity")
                 .MapEndpoint<LogoutEndpoint>()
                 .MapEndpoint<GetRolesEndpoint>();
+
+            endpoints.MapGroup("v1/reports")
+               .WithTags("Reports")
+               .RequireAuthorization()
+               .MapEndpoint<GetIncomesAndExpensesEndpoint>()
+               .MapEndpoint<GetIncomesByCategoryEndpoint>()
+               .MapEndpoint<GetExpensesByCategoryEndpoint>()
+               .MapEndpoint<GetFinancialSummaryEndpoint>();
         }
 
         private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app) 
