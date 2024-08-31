@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\imgs\dima.png_old" />
+    <Content Remove="wwwroot\imgs\logo.png_old" />
+  </ItemGroup>
+
+  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\appsettings.json" />
   </ItemGroup>
 
@@ -22,10 +27,6 @@
 
   <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\imgs\" />
   </ItemGroup>
 
   <ItemGroup>

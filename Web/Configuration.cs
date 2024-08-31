@@ -5,7 +5,7 @@ namespace Web
 {
     public static class Configuration
     {
-        public const string HttpClientName = "dima";
+        public const string HttpClientName = "dmo";
 
         public static string BackendUrl = "http://localhost:5107";
 
@@ -20,23 +20,25 @@ namespace Web
             },
             PaletteLight = new PaletteLight
             {
-                Primary = new MudColor("#1EFA2D"),
+                //Primary = new MudColor("#1EFA2D"),
+                Primary = new MudColor("#3A8AC5"),
                 PrimaryContrastText = new MudColor("#000000"),
-                Secondary = Colors.LightGreen.Darken3,
+                Secondary = Colors.LightBlue.Darken3,
                 Background = Colors.Gray.Lighten4,
-                AppbarBackground = new MudColor("#1EFA2D"),
+                AppbarBackground = new MudColor("#3A8AC5"),
                 AppbarText = Colors.Shades.Black,
                 TextPrimary = Colors.Shades.Black,
                 DrawerText = Colors.Shades.White,
-                DrawerBackground = Colors.Green.Darken4
+                DrawerBackground = new MudColor("#3A8AC5")
             },
             PaletteDark = new PaletteDark
             {
-                Primary = Colors.LightGreen.Accent3,
-                Secondary = Colors.LightGreen.Darken3,
-                AppbarBackground = Colors.LightGreen.Accent3,
+                Primary = new MudColor("#3A8AC5"),
+                Secondary = Colors.LightBlue.Darken3,
+                AppbarBackground = Colors.LightBlue.Accent3,
                 AppbarText = Colors.Shades.Black,
-                PrimaryContrastText = new MudColor("#000000")
+                PrimaryContrastText = new MudColor("#000000"),
+                DrawerBackground = new MudColor("#3A8AC5")
             }
         };
     }

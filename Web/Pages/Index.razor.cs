@@ -4,7 +4,7 @@ using Core.Requests.Reports;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
-namespace Web.Index;
+namespace Web.Pages;
 
 public partial class IndexPage : ComponentBase
 {
