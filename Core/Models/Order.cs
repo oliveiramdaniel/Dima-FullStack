@@ -1,6 +1,4 @@
 ﻿using Core.Enums;
-using Dima.Core.Enums;
-
 namespace Core.Models
 {
     public class Order

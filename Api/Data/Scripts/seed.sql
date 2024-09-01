@@ -138,3 +138,5 @@ VALUES ('Birthday gift', '2024-05-22', '2024-05-22', 2, -150.00, (SELECT Id FROM
 
 INSERT INTO [dbo].[Transaction] (Title, CreatedAt, PaidOrReceivedAt, Type, Amount, CategoryId, UserId)
 VALUES ('Bonus', '2024-05-24', '2024-05-24', 1, 1200.00, (SELECT Id FROM [dbo].[Category] WHERE Title='Investments'), 'test@test.com');
+
+INSERT INTO [Product] VALUES('Annual Plan', '1 year of access to the platform', 'annual-plan', 1, 799.90)
