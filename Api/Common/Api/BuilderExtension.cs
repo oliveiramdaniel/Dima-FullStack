@@ -3,6 +3,7 @@ using Api.Handlers;
 using Api.Models;
 using Core;
 using Core.Handlers;
+using Dima.Api.Handlers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
@@ -59,6 +60,9 @@ namespace Api.Common.Api
             //Dependecy Injection
             builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
             builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
+            builder.Services.AddScoped<IProductHandler, ProductHandler>();
+            builder.Services.AddScoped<IVoucherHandler, VoucherHandler>();
+            builder.Services.AddScoped<IOrderHandler, OrderHandler>();
             builder.Services.AddTransient<IReportHandler, ReportHandler>();
 
         }

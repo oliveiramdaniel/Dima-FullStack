@@ -1,6 +1,7 @@
 ﻿using Api.Common.Api;
 using Api.Endpoints.Categories;
 using Api.Endpoints.Identity;
+using Api.Endpoints.Orders;
 using Api.Endpoints.Reports;
 using Api.Endpoints.Transactions;
 using Api.Models;
@@ -36,6 +37,26 @@ namespace Api.Endpoints
                 .MapEndpoint<GetTransactionByPeriodEndpoint>()
                 .MapEndpoint<DeleteTransactionEndpoint>();
 
+            endpoints.MapGroup("v1/products")
+                .WithTags("Products")
+                .RequireAuthorization()
+                .MapEndpoint<GetAllProductsEndpoint>()
+                .MapEndpoint<GetProductBySlugEndpoint>();
+
+            endpoints.MapGroup("v1/vouchers")
+                .WithTags("Vouchers")
+                .RequireAuthorization()
+                .MapEndpoint<GetVoucherByNumberEndpoint>();
+            
+            endpoints.MapGroup("v1/orders")
+                .WithTags("Orders")
+                .RequireAuthorization()
+                .MapEndpoint<GetAllOrdersEndpoint>()
+                .MapEndpoint<GetOrderByNumberEndpoint>()
+                .MapEndpoint<CreateOrderEndpoint>()
+                .MapEndpoint<CancelOrderEndpoint>()
+                .MapEndpoint<PayOrderEndpoint>()
+                .MapEndpoint<RefundOrderEndpoint>();
 
             endpoints.MapGroup("v1/identity")
                 .WithTags("Identity")

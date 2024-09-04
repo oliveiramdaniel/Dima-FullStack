@@ -140,10 +140,12 @@ public class OrderHandler(AppDbContext context) : IOrderHandler
                 .Orders
                 .Include(x => x.Product)
                 .Include(x => x.Voucher)
-                .FirstOrDefaultAsync(x => x.Number == request.OrderNumber && x.UserId == request.UserId);
+                .FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == request.UserId);
+                //.FirstOrDefaultAsync(x => x.Number == request.OrderNumber && x.UserId == request.UserId);
+
 
             if (order is null)
-                return new Response<Order?>(null, 404, $"Order {request.OrderNumber} not found");
+                return new Response<Order?>(null, 404, $"Order {request.Id} not found");
         }
         catch
         {
@@ -220,6 +222,7 @@ public class OrderHandler(AppDbContext context) : IOrderHandler
             order = await context
                 .Orders
                 .Include(x => x.Product)
+                .Include(x => x.Voucher)
                 .FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == request.UserId);
 
             if (order is null)
@@ -291,7 +294,7 @@ public class OrderHandler(AppDbContext context) : IOrderHandler
         }
         catch
         {
-            return new PagedResponse<List<Order>?>(null, 500, "could not query the orders");
+            return new PagedResponse<List<Order>?>(null, 500, "Could not query the orders");
         }
     }
 
