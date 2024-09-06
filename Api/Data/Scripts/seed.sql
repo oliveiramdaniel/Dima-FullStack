@@ -141,4 +141,6 @@ VALUES ('Bonus', '2024-05-24', '2024-05-24', 1, 1200.00, (SELECT Id FROM [dbo].[
 
 INSERT INTO [Product] VALUES('Annual Plan', '1 year of access to the platform', 'annual-plan', 1, 799.90)
 
+INSERT INTO [Product] VALUES('Semester plan', '6 months of access to the platform', 'semester-plan', 1, 599.90)
+
 INSERT INTO Voucher VALUES ('1234ABCD', 'Test Voucher', 'Test', 1, 79.9)
