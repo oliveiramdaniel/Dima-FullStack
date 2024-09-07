@@ -30,6 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Components\Orders\OrderAction.razor" />
+    <None Include="Components\Orders\OrderStatus.razor" />
     <None Include="Components\Reports\ExpensesByCategoryChart.razor" />
     <None Include="Components\Reports\IncomesAndExpensesChart.razor" />
     <None Include="Components\Reports\IncomesByCategoryChart.razor" />

@@ -144,3 +144,5 @@ INSERT INTO [Product] VALUES('Annual Plan', '1 year of access to the platform', 
 INSERT INTO [Product] VALUES('Semester plan', '6 months of access to the platform', 'semester-plan', 1, 599.90)
 
 INSERT INTO Voucher VALUES ('1234ABCD', 'Test Voucher', 'Test', 1, 79.9)
+
+INSERT INTO Voucher VALUES ('1A2B3C4D', 'Test Voucher', 'Test', 1, 79.9)

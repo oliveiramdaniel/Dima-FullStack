@@ -21,7 +21,7 @@ public class CheckoutPage : ComponentBase
 
     public PatternMask Mask = new("####-####")
     {
-        MaskChars = [new MaskChar('#', @"[0-9a-fA-F]")],
+        MaskChars = [new MaskChar('#', @"[0-9a-fA-Z]")],
         Placeholder = '_',
         CleanDelimiters = true,
         Transformation = AllUpperCase
@@ -85,6 +85,7 @@ public class CheckoutPage : ComponentBase
                 var result = await VoucherHandler.GetByNumberAsync(
                     new GetVoucherByNumberRequest
                         { Number = VoucherNumber.Replace("-", "") });
+
                 if (!result.IsSucess)
                 {
                     VoucherNumber = string.Empty;
@@ -102,7 +103,7 @@ public class CheckoutPage : ComponentBase
             catch
             {
                 VoucherNumber = string.Empty;
-                Snackbar.Add("Não foi possível obter o voucher", Severity.Error);
+                Snackbar.Add("Unable to get voucher", Severity.Error);
             }
         }
 
